@@ -3,5 +3,5 @@ function Title(props) {
 }
 
 export default function Home() {
-  return <Title>Bootcamp JamStack</Title>;
+  return <Title>Hello World Bootcamp JamStack</Title>;
 }
