@@ -32,7 +32,6 @@ MenuWrapper.CentralSide = styled.div`
 	padding: 12px;
 
 	a {
-		font-size: 16px;
 		text-align: center;
 		display: block;
 		text-decoration: none;

@@ -1,5 +1,6 @@
-import styled, { css } from "styled-components";
 import get from "lodash/get";
+import styled, { css } from "styled-components";
+import { TextStyleVariantsMap } from "../../foundation/Text";
 
 /*The variable theme and variant was extract of object props*/
 
@@ -18,15 +19,14 @@ const ButtonDefault = css`
 `;
 
 export const Button = styled.button`
-	font-family: "Rudik", sans-serif;
-	font-size: 16px;
+	font-family: ${({ theme }) => theme.fontFamily};
 	padding: 12px 26px;
 	height: 44px;
-	line-height: 20px;
-	font-weight: bold;
 	opacity: 1;
 	border: 0;
 	cursor: pointer;
+
+	${TextStyleVariantsMap.paragraph1}
 
 	${(props) => (props.ghost ? ButtonGhost : ButtonDefault)}
 
