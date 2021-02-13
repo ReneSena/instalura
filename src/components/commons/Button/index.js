@@ -1,6 +1,7 @@
 import get from "lodash/get";
 import styled, { css } from "styled-components";
 import { TextStyleVariantsMap } from "../../foundation/Text";
+import { breakpointsMedia } from "../../../theme/utils/breakpointsMedia";
 
 /*The variable theme and variant was extract of object props*/
 
@@ -26,8 +27,6 @@ export const Button = styled.button`
 	border: 0;
 	cursor: pointer;
 
-	${TextStyleVariantsMap.paragraph1}
-
 	${(props) => (props.ghost ? ButtonGhost : ButtonDefault)}
 
 	transition: opacity ${({ theme }) => theme.transition};
@@ -37,4 +36,14 @@ export const Button = styled.button`
 	&:focus {
 		opacity: 0.5;
 	}
+
+	${breakpointsMedia({
+		xs: css`
+			${TextStyleVariantsMap.smallestException}
+		`,
+		md: css`
+			padding: 12px 43px;
+			${TextStyleVariantsMap.paragraph1}
+		`,
+	})}
 `;
