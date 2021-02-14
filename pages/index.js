@@ -1,10 +1,10 @@
-import React from "react";
-import Menu from "../src/components/commons/Menu";
-import Footer from "../src/components/commons/Footer";
-import Text from "../src/components/foundation/Text";
-import { Button } from "../src/components/commons/Button";
-import { Grid } from "../src/components/foundation/layout/Grid";
-import { Box } from "../src/components/foundation/layout/Box";
+import React from 'react';
+import Menu from '../src/components/commons/Menu';
+import Footer from '../src/components/commons/Footer';
+import Text from '../src/components/foundation/Text';
+import { Button } from '../src/components/commons/Button';
+import { Grid } from '../src/components/foundation/layout/Grid';
+import { Box } from '../src/components/foundation/layout/Box';
 
 export default function Home() {
 	return (
@@ -16,16 +16,14 @@ export default function Home() {
 			justifyContent="space-between"
 			backgroundImage="url(/images/bubbles.svg)"
 			backgroundRepeat="no-repeat"
-			backgroundPosition="bottom right"
-		>
+			backgroundPosition="bottom right">
 			<Menu />
 
 			<Grid.Container
 				marginTop={{
-					xs: "32px",
-					md: "75px",
-				}}
-			>
+					xs: '32px',
+					md: '75px',
+				}}>
 				<Grid.Row>
 					<Grid.Col
 						value={{ xs: 12, md: 5 }}
@@ -33,17 +31,15 @@ export default function Home() {
 						display="flex"
 						alignItems="flex-start"
 						justifyContent="center"
-						flexDirection="column"
-					>
+						flexDirection="column">
 						<Text
 							variant="title"
 							tag="h1"
 							color="tertiary.main"
 							textAlign={{
-								xs: "center",
-								md: "left",
-							}}
-						>
+								xs: 'center',
+								md: 'left',
+							}}>
 							Compartilhe momentos e conecte-se com amigos
 						</Text>
 
@@ -52,10 +48,9 @@ export default function Home() {
 							tag="p"
 							color="tertiary.light"
 							textAlign={{
-								xs: "center",
-								md: "left",
-							}}
-						>
+								xs: 'center',
+								md: 'left',
+							}}>
 							Lorem Ipsum is simply dummy text of the printing and
 							typesetting industry. Lorem Ipsum has been the
 							industrys standard dummy text ever since the 1500s.
@@ -64,11 +59,10 @@ export default function Home() {
 						<Button
 							variant="primary.main"
 							margin={{
-								xs: "auto",
-								md: "initial",
+								xs: 'auto',
+								md: 'initial',
 							}}
-							display="block"
-						>
+							display="block">
 							Cadastrar
 						</Button>
 					</Grid.Col>
@@ -76,11 +70,10 @@ export default function Home() {
 						value={{
 							xs: 12,
 							md: 6,
-						}}
-					>
+						}}>
 						<img
 							alt="Imagem de celular com páginas internas do projeto com o perfil do Nicolas Cage"
-							style={{ display: "block", margin: "auto" }}
+							style={{ display: 'block', margin: 'auto' }}
 							src="https://bootcamp-alura-01-git-modulo01.omariosouto.vercel.app/images/phones.png"
 						/>
 					</Grid.Col>

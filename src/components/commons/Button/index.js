@@ -1,10 +1,10 @@
-import get from "lodash/get";
-import styled, { css } from "styled-components";
-import { TextStyleVariantsMap } from "../../foundation/Text";
-import { breakpointsMedia } from "../../../theme/utils/breakpointsMedia";
-import { propToStyle } from "../../../theme/propToStyle";
+import get from 'lodash/get';
+import styled, { css } from 'styled-components';
+import { TextStyleVariantsMap } from '../../foundation/Text';
+import { breakpointsMedia } from '../../../theme/utils/breakpointsMedia';
+import { propToStyle } from '../../../theme/propToStyle';
 
-/*The variable theme and variant was extract of object props*/
+/* The variable theme and variant was extract of object props */
 
 const ButtonGhost = css`
 	color: ${({ theme, variant }) => get(theme, `colors.${variant}.color`)};
@@ -48,6 +48,6 @@ export const Button = styled.button`
 		`,
 	})}
 
-	${propToStyle("margin")}
-	${propToStyle("display")}
+	${propToStyle('margin')}
+	${propToStyle('display')}
 `;
