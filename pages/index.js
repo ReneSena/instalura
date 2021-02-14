@@ -79,6 +79,7 @@ export default function Home() {
 						}}
 					>
 						<img
+							alt="Imagem de celular com páginas internas do projeto com o perfil do Nicolas Cage"
 							style={{ display: "block", margin: "auto" }}
 							src="https://bootcamp-alura-01-git-modulo01.omariosouto.vercel.app/images/phones.png"
 						/>
