@@ -1,7 +1,9 @@
-import { ThemeProvider } from "styled-components";
-import theme from "../src/theme";
-import { GlobalStyle } from "../src/theme/GlobalStyle";
-import Head from "next/head";
+import React from 'react';
+import Head from 'next/head';
+import PropTypes from 'prop-types';
+import { ThemeProvider } from 'styled-components';
+import theme from '../src/theme';
+import { GlobalStyle } from '../src/theme/GlobalStyle';
 
 export default function App({ Component, pageProps }) {
 	return (
@@ -21,3 +23,15 @@ export default function App({ Component, pageProps }) {
 		</>
 	);
 }
+
+App.defaultProps = {
+	Component: '',
+	pageProps: '',
+};
+
+App.propTypes = {
+	// eslint-disable-next-line react/forbid-prop-types
+	Component: PropTypes.any,
+	// eslint-disable-next-line react/forbid-prop-types
+	pageProps: PropTypes.any,
+};
