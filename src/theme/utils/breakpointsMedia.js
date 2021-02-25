@@ -1,5 +1,5 @@
-import { css } from "styled-components";
-import theme from "../index";
+import { css } from 'styled-components';
+import theme from '../index';
 
 const { breakpoints } = theme;
 

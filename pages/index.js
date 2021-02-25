@@ -1,12 +1,21 @@
 import React from 'react';
 import Menu from '../src/components/commons/Menu';
 import Footer from '../src/components/commons/Footer';
-import Text from '../src/components/foundation/Text';
+import { Modal } from '../src/components/commons/Modal';
 import { Button } from '../src/components/commons/Button';
+import Text from '../src/components/foundation/Text';
 import { Grid } from '../src/components/foundation/layout/Grid';
 import { Box } from '../src/components/foundation/layout/Box';
 
+// SOLID [S] = Single Responsability (Um componente deve ter apenas uma responsabilidade)
+// SOLID [O] = Open Closed (Nunca modificar o que já tem, e sim adicionar, isso é pra prever futuros bugs)
+// SOLID [L] = Liskov Substitution
+// SOLID [I] = Interface Segregation
+// SOLID [D] = Dependency Inversion
+
 export default function Home() {
+	const [isModalOpen, setModalState] = React.useState(false);
+
 	return (
 		<Box
 			flex="1"
@@ -17,6 +26,18 @@ export default function Home() {
 			backgroundImage="url(/images/bubbles.svg)"
 			backgroundRepeat="no-repeat"
 			backgroundPosition="bottom right">
+			<Modal
+				isOpen={isModalOpen}
+				onClose={() => {
+					setModalState(false);
+				}}>
+				{(propsModal) => (
+					<Box backgroundColor="white" {...propsModal}>
+						<h1>Modal funcional</h1>
+					</Box>
+				)}
+			</Modal>
+
 			<Menu />
 
 			<Grid.Container
@@ -62,7 +83,10 @@ export default function Home() {
 								xs: 'auto',
 								md: 'initial',
 							}}
-							display="block">
+							display="block"
+							onClick={() => {
+								setModalState(!isModalOpen);
+							}}>
 							Cadastrar
 						</Button>
 					</Grid.Col>
