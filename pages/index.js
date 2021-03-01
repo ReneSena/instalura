@@ -6,6 +6,7 @@ import { Button } from '../src/components/commons/Button';
 import Text from '../src/components/foundation/Text';
 import { Grid } from '../src/components/foundation/layout/Grid';
 import { Box } from '../src/components/foundation/layout/Box';
+import FormCadastro from '../src/components/patterns/FormCadastro';
 
 // SOLID [S] = Single Responsability (Um componente deve ter apenas uma responsabilidade)
 // SOLID [O] = Open Closed (Nunca modificar o que já tem, e sim adicionar, isso é pra prever futuros bugs)
@@ -31,11 +32,7 @@ export default function Home() {
 				onClose={() => {
 					setModalState(false);
 				}}>
-				{(propsModal) => (
-					<Box backgroundColor="white" {...propsModal}>
-						<h1>Modal funcional</h1>
-					</Box>
-				)}
+				{(propsModal) => <FormCadastro propsModal={propsModal} />}
 			</Modal>
 
 			<Menu />
