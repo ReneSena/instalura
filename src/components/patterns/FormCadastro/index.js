@@ -7,8 +7,8 @@ import Text from '../../foundation/Text';
 
 function FormContent() {
 	const [userInfo, setUserInfo] = React.useState({
-		user: '@renesena',
-		email: 'rene.sena@gmail.com',
+		user: '',
+		email: '',
 	});
 
 	function handleChange(event) {
@@ -40,7 +40,7 @@ function FormContent() {
 			</Text>
 
 			<div>
-				<label htmlFor="email">Email</label>
+				{/* <label htmlFor="email">Email</label> */}
 				<TextField
 					placeholder="Email"
 					name="email"
@@ -49,7 +49,7 @@ function FormContent() {
 				/>
 			</div>
 			<div>
-				<label htmlFor="user">Usuário</label>
+				{/* <label htmlFor="user">Usuário</label> */}
 				<TextField
 					placeholder="Usuário"
 					name="user"
