@@ -1,14 +1,29 @@
 import React from 'react';
+import { Feedback } from './Feedback';
+import feedbackSuccessAnimation from './animations/success.json';
+import feedbackErrorAnimation from './animations/error.json';
 import { Button } from '../../commons/Button';
 import TextField from '../../Forms/TextField';
 import { Box } from '../../foundation/layout/Box';
 import { Grid } from '../../foundation/layout/Grid';
 import Text from '../../foundation/Text';
 
+const formStates = {
+	DEFAULT: 'DEFAULT',
+	LOADING: 'LOADING',
+	DONE: 'DONE',
+	ERROR: 'ERROR',
+};
+
 function FormContent() {
+	const [isFormSubmited, setIsFormSubmited] = React.useState(false);
+	const [submissionStatus, setSubmissionStatus] = React.useState(
+		formStates.DEFAULT
+	);
+
 	const [userInfo, setUserInfo] = React.useState({
 		user: '',
-		email: '',
+		nome: '',
 	});
 
 	function handleChange(event) {
@@ -19,14 +34,43 @@ function FormContent() {
 		});
 	}
 
+	function handleSubmit(event) {
+		event.preventDefault();
+
+		setIsFormSubmited(true);
+
+		/*Data transfer Object */
+		const userDTO = {
+			username: userInfo.user,
+			name: userInfo.nome,
+		};
+
+		fetch('https://instalura-api.vercel.app/api/users', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(userDTO),
+		})
+			.then((responseServer) => {
+				if (responseServer.ok) {
+					return responseServer.json();
+				}
+
+				throw new Error('Não foi possível cadastrar o usuário. :(');
+			})
+			.then((responseData) => setSubmissionStatus(formStates.DONE))
+			.catch((error) => setSubmissionStatus(formStates.ERROR))
+			.finally(() => {
+				event.target.reset();
+			});
+	}
+
 	const isFormInvalid =
-		userInfo.user.length === 0 || userInfo.email.length === 0;
+		userInfo.user.length === 0 || userInfo.nome.length === 0;
 
 	return (
-		<form
-			onSubmit={(event) => {
-				event.preventDefault();
-			}}>
+		<form onSubmit={handleSubmit}>
 			<Text variant="title" tag="h1" color="tertiary.main">
 				Pronto para saber da vida dos outros?
 			</Text>
@@ -40,16 +84,14 @@ function FormContent() {
 			</Text>
 
 			<div>
-				{/* <label htmlFor="email">Email</label> */}
 				<TextField
-					placeholder="Email"
-					name="email"
-					value={userInfo.email}
+					placeholder="Nome"
+					name="nome"
+					value={userInfo.nome}
 					onChange={handleChange}
 				/>
 			</div>
 			<div>
-				{/* <label htmlFor="user">Usuário</label> */}
 				<TextField
 					placeholder="Usuário"
 					name="user"
@@ -64,6 +106,21 @@ function FormContent() {
 				disabled={isFormInvalid}>
 				Cadastrar
 			</Button>
+
+			{isFormSubmited && submissionStatus === formStates.DONE && (
+				<Feedback
+					message="Cadastro realizado com sucesso!"
+					nameAnimation={feedbackSuccessAnimation}
+				/>
+			)}
+
+			{isFormSubmited && submissionStatus === formStates.ERROR && (
+				<Feedback
+					message="	Não foi possível realizar o cadastro, verifique se os
+				dados estão corretos. E tente novamente."
+					nameAnimation={feedbackErrorAnimation}
+				/>
+			)}
 		</form>
 	);
 }

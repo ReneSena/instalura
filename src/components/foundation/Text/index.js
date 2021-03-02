@@ -52,7 +52,7 @@ export const TextStyleVariantsMap = {
 
 const TextBase = styled.span`
 	${({ variant }) => TextStyleVariantsMap[variant]}
-	color: ${(props) => get(props.theme, `colors.${props.color}.color`)}
+	color: ${(props) => get(props.theme, `colors.${props.color}.color`)};
 
 	${propToStyle('textAlign')}
 `;
