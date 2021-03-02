@@ -2,6 +2,8 @@ import React from 'react';
 import { Feedback } from './Feedback';
 import feedbackSuccessAnimation from './animations/success.json';
 import feedbackErrorAnimation from './animations/error.json';
+import LoadingAnimation from './animations/loading.json';
+
 import { Button } from '../../commons/Button';
 import TextField from '../../Forms/TextField';
 import { Box } from '../../foundation/layout/Box';
@@ -36,6 +38,7 @@ function FormContent() {
 
 	function handleSubmit(event) {
 		event.preventDefault();
+		setSubmissionStatus(formStates.LOADING);
 
 		setIsFormSubmited(true);
 
@@ -59,11 +62,13 @@ function FormContent() {
 
 				throw new Error('Não foi possível cadastrar o usuário. :(');
 			})
-			.then((responseData) => setSubmissionStatus(formStates.DONE))
-			.catch((error) => setSubmissionStatus(formStates.ERROR))
-			.finally(() => {
-				event.target.reset();
-			});
+			.then((responseData) =>
+				setTimeout(() => setSubmissionStatus(formStates.DONE), 5000)
+			)
+			.catch((error) => setSubmissionStatus(formStates.ERROR), 5000)
+			.finally(() =>
+				setTimeout(() => setSubmissionStatus(formStates.DEFAULT), 10000)
+			);
 	}
 
 	const isFormInvalid =
@@ -99,6 +104,7 @@ function FormContent() {
 					onChange={handleChange}
 				/>
 			</div>
+
 			<Button
 				type="submit"
 				variant="primary.main"
@@ -106,6 +112,14 @@ function FormContent() {
 				disabled={isFormInvalid}>
 				Cadastrar
 			</Button>
+
+			{isFormSubmited && submissionStatus === formStates.LOADING && (
+				<Feedback
+					message="Enviando, aguarde..."
+					nameAnimation={LoadingAnimation}
+					loopAnimation={true}
+				/>
+			)}
 
 			{isFormSubmited && submissionStatus === formStates.DONE && (
 				<Feedback
@@ -116,7 +130,7 @@ function FormContent() {
 
 			{isFormSubmited && submissionStatus === formStates.ERROR && (
 				<Feedback
-					message="	Não foi possível realizar o cadastro, verifique se os
+					message="Não foi possível realizar o cadastro, verifique se os
 				dados estão corretos. E tente novamente."
 					nameAnimation={feedbackErrorAnimation}
 				/>

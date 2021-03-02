@@ -4,7 +4,7 @@ import { Lottie } from '@crello/react-lottie';
 import Text from '../../../foundation/Text';
 import { Box } from '../../../foundation/layout/Box';
 
-export function Feedback({ message, nameAnimation }) {
+export function Feedback({ message, nameAnimation, loopAnimation }) {
 	return (
 		<Box>
 			<Text
@@ -22,13 +22,17 @@ export function Feedback({ message, nameAnimation }) {
 				}}
 				config={{
 					animationData: nameAnimation,
-					loop: false,
+					loop: loopAnimation,
 					autoplay: true,
 				}}
 			/>
 		</Box>
 	);
 }
+
+Feedback.defaultProps = {
+	loopAnimation: false,
+};
 
 Feedback.propTypes = {
 	message: PropTypes.string.isRequired,
@@ -37,4 +41,5 @@ Feedback.propTypes = {
 		PropTypes.func,
 		PropTypes.object,
 	]).isRequired,
+	loopAnimation: PropTypes.bool,
 };
