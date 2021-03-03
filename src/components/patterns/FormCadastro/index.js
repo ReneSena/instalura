@@ -23,10 +23,12 @@ function FormContent() {
 		formStates.DEFAULT
 	);
 
-	const [userInfo, setUserInfo] = React.useState({
+	const initialValues = {
 		user: '',
 		nome: '',
-	});
+	};
+
+	const [userInfo, setUserInfo] = React.useState(initialValues);
 
 	function handleChange(event) {
 		const fieldName = event.target.getAttribute('name');
@@ -42,7 +44,7 @@ function FormContent() {
 
 		setIsFormSubmited(true);
 
-		/*Data transfer Object */
+		/* Data transfer Object */
 		const userDTO = {
 			username: userInfo.user,
 			name: userInfo.nome,
@@ -63,11 +65,14 @@ function FormContent() {
 				throw new Error('Não foi possível cadastrar o usuário. :(');
 			})
 			.then((responseData) =>
-				setTimeout(() => setSubmissionStatus(formStates.DONE), 5000)
+				setTimeout(() => {
+					setSubmissionStatus(formStates.DONE);
+					setUserInfo(initialValues);
+				}, 5000)
 			)
 			.catch((error) => setSubmissionStatus(formStates.ERROR), 5000)
 			.finally(() =>
-				setTimeout(() => setSubmissionStatus(formStates.DEFAULT), 10000)
+				setTimeout(() => setSubmissionStatus(formStates.DEFAULT), 8000)
 			);
 	}
 
@@ -117,7 +122,7 @@ function FormContent() {
 				<Feedback
 					message="Enviando, aguarde..."
 					nameAnimation={LoadingAnimation}
-					loopAnimation={true}
+					loopAnimation
 				/>
 			)}
 
