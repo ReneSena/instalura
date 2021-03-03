@@ -30,4 +30,4 @@ jobs:
       - name: Install dependecies
         run: yarn install
       - name: Runner Linter
-        run: yarn lint
+        run: yarn run lint
