@@ -1,7 +1,8 @@
 import { breakpointsMedia } from './utils/breakpointsMedia';
 
 export function propToStyle(propName) {
-	return function (props) {
+	return (props) => {
+		// eslint-disable-next-line react/destructuring-assignment
 		const propValue = props[propName];
 
 		if (typeof propValue === 'string' || typeof propValue === 'number') {
@@ -30,5 +31,7 @@ export function propToStyle(propName) {
 				},
 			});
 		}
+
+		return null;
 	};
 }

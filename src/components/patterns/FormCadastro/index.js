@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Feedback } from './Feedback';
 import feedbackSuccessAnimation from './animations/success.json';
 import feedbackErrorAnimation from './animations/error.json';
@@ -64,13 +65,21 @@ function FormContent() {
 
 				throw new Error('Não foi possível cadastrar o usuário. :(');
 			})
-			.then((responseData) =>
-				setTimeout(() => {
-					setSubmissionStatus(formStates.DONE);
-					setUserInfo(initialValues);
-				}, 5000)
-			)
-			.catch((error) => setSubmissionStatus(formStates.ERROR), 5000)
+			.then((responseData) => {
+				if (responseData) {
+					setTimeout(() => {
+						setSubmissionStatus(formStates.DONE);
+						setUserInfo(initialValues);
+					}, 5000);
+				}
+			})
+			.catch((error) => {
+				if (error.response) {
+					setTimeout(() => {
+						setSubmissionStatus(formStates.ERROR);
+					}, 5000);
+				}
+			})
 			.finally(() =>
 				setTimeout(() => setSubmissionStatus(formStates.DEFAULT), 8000)
 			);
@@ -167,7 +176,6 @@ export default function FormCadastro({ propsModal }) {
 						md: '85px',
 					}}
 					backgroundColor="white"
-					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...propsModal}>
 					<FormContent />
 				</Box>
@@ -175,3 +183,16 @@ export default function FormCadastro({ propsModal }) {
 		</Grid.Row>
 	);
 }
+
+FormCadastro.defaultProps = {
+	propsModal: '',
+};
+
+FormCadastro.propTypes = {
+	propsModal: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.object,
+		PropTypes.elementType,
+		PropTypes.node,
+	]),
+};

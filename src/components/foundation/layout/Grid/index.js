@@ -55,7 +55,7 @@ const Col = styled.div`
 	max-width: 100%;
 	${propToStyle('paddingRight')}
 
-	${function ({ value }) {
+	${({ value }) => {
 		if (typeof value === 'number') {
 			return css`
 				flex: 0 0 ${(100 * value) / 12}%;
@@ -102,7 +102,7 @@ const Col = styled.div`
 		});
 	}}
 
-	${function ({ offset }) {
+	${({ offset }) => {
 		if (typeof offset === 'number') {
 			return css`
 				margin-left: ${(100 * offset) / 12}%;
