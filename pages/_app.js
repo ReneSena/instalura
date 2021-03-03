@@ -30,8 +30,16 @@ App.defaultProps = {
 };
 
 App.propTypes = {
-	// eslint-disable-next-line react/forbid-prop-types
-	Component: PropTypes.any,
-	// eslint-disable-next-line react/forbid-prop-types
-	pageProps: PropTypes.any,
+	Component: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.node,
+		PropTypes.elementType,
+		PropTypes.object,
+	]),
+	pageProps: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.node,
+		PropTypes.elementType,
+		PropTypes.object,
+	]),
 };

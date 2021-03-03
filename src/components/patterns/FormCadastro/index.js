@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Feedback } from './Feedback';
 import feedbackSuccessAnimation from './animations/success.json';
 import feedbackErrorAnimation from './animations/error.json';
@@ -23,10 +24,12 @@ function FormContent() {
 		formStates.DEFAULT
 	);
 
-	const [userInfo, setUserInfo] = React.useState({
+	const initialValues = {
 		user: '',
 		nome: '',
-	});
+	};
+
+	const [userInfo, setUserInfo] = React.useState(initialValues);
 
 	function handleChange(event) {
 		const fieldName = event.target.getAttribute('name');
@@ -42,7 +45,7 @@ function FormContent() {
 
 		setIsFormSubmited(true);
 
-		/*Data transfer Object */
+		/* Data transfer Object */
 		const userDTO = {
 			username: userInfo.user,
 			name: userInfo.nome,
@@ -62,12 +65,23 @@ function FormContent() {
 
 				throw new Error('Não foi possível cadastrar o usuário. :(');
 			})
-			.then((responseData) =>
-				setTimeout(() => setSubmissionStatus(formStates.DONE), 5000)
-			)
-			.catch((error) => setSubmissionStatus(formStates.ERROR), 5000)
+			.then((responseData) => {
+				if (responseData) {
+					setTimeout(() => {
+						setSubmissionStatus(formStates.DONE);
+						setUserInfo(initialValues);
+					}, 5000);
+				}
+			})
+			.catch((error) => {
+				if (error.response) {
+					setTimeout(() => {
+						setSubmissionStatus(formStates.ERROR);
+					}, 5000);
+				}
+			})
 			.finally(() =>
-				setTimeout(() => setSubmissionStatus(formStates.DEFAULT), 10000)
+				setTimeout(() => setSubmissionStatus(formStates.DEFAULT), 8000)
 			);
 	}
 
@@ -117,7 +131,7 @@ function FormContent() {
 				<Feedback
 					message="Enviando, aguarde..."
 					nameAnimation={LoadingAnimation}
-					loopAnimation={true}
+					loopAnimation
 				/>
 			)}
 
@@ -162,7 +176,6 @@ export default function FormCadastro({ propsModal }) {
 						md: '85px',
 					}}
 					backgroundColor="white"
-					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...propsModal}>
 					<FormContent />
 				</Box>
@@ -170,3 +183,16 @@ export default function FormCadastro({ propsModal }) {
 		</Grid.Row>
 	);
 }
+
+FormCadastro.defaultProps = {
+	propsModal: '',
+};
+
+FormCadastro.propTypes = {
+	propsModal: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.object,
+		PropTypes.elementType,
+		PropTypes.node,
+	]),
+};
