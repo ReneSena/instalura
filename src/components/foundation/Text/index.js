@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { propToStyle } from '../../../theme/propToStyle';
 import { breakpointsMedia } from '../../../theme/utils/breakpointsMedia';
+import Link from '../../commons/Link';
 
 export const TextStyleVariantsMap = {
 	paragraph1: css`
@@ -57,7 +58,15 @@ const TextBase = styled.span`
 	${propToStyle('textAlign')}
 `;
 
-function Text({ tag, variant, children, ...props }) {
+function Text({ tag, variant, children, href, ...props }) {
+	if (href) {
+		return (
+			<TextBase as={Link} href={href} variant={variant} {...props}>
+				{children}
+			</TextBase>
+		);
+	}
+
 	return (
 		<TextBase variant={variant} as={tag} {...props}>
 			{children}
@@ -69,12 +78,14 @@ Text.defaultProps = {
 	tag: 'span',
 	variant: 'paragraph1',
 	children: null,
+	href: '',
 };
 
 Text.propTypes = {
 	tag: PropTypes.string,
 	variant: PropTypes.string,
 	children: PropTypes.node,
+	href: PropTypes.string,
 };
 
 export default Text;
