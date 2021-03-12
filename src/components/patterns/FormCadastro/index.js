@@ -65,23 +65,16 @@ function FormContent() {
 
 				throw new Error('Não foi possível cadastrar o usuário. :(');
 			})
-			.then((responseData) => {
-				if (responseData) {
-					setTimeout(() => {
-						setSubmissionStatus(formStates.DONE);
-						setUserInfo(initialValues);
-					}, 5000);
-				}
-			})
-			.catch((error) => {
-				if (error.response) {
-					setTimeout(() => {
-						setSubmissionStatus(formStates.ERROR);
-					}, 5000);
-				}
-			})
+			.then(
+				(responseData) =>
+					responseData.data && setSubmissionStatus(formStates.DONE)
+			)
+			.catch((error) => error && setSubmissionStatus(formStates.ERROR))
 			.finally(() =>
-				setTimeout(() => setSubmissionStatus(formStates.DEFAULT), 8000)
+				setTimeout(() => {
+					setSubmissionStatus(formStates.DEFAULT);
+					setUserInfo(initialValues);
+				}, 5000)
 			);
 	}
 
