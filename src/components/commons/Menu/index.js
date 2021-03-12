@@ -20,10 +20,6 @@ export default function Menu({ onCadastrarClick }) {
 			label: 'Sobre',
 			url: '/about',
 		},
-		{
-			label: 'Faq',
-			url: '/faq',
-		},
 	];
 
 	return (
