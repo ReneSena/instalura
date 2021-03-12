@@ -30,6 +30,7 @@ const ButtonWrapper = styled.button`
 	opacity: 1;
 	border: 0;
 	cursor: pointer;
+	white-space: nowrap;
 
 	${(props) => (props.ghost ? ButtonGhost : ButtonDefault)}
 
