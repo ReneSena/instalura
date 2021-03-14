@@ -1,18 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import FAQScreen from '../../src/components/screens/FAQScreen';
+import websitePageHOC from '../../src/components/wrappers/WebsitePage/hoc';
 
-export default function FAQPage({ faqCategories }) {
+function FAQPage({ faqCategories }) {
 	return <FAQScreen faqCategories={faqCategories} />;
 }
 
-FAQPage.defaultProps = {
-	faqCategories: [],
-};
+export default websitePageHOC(FAQPage, {
+	pageWrapperProps: {
+		seoProps: {
+			headTitle: 'Perguntas Frequentes',
+		},
+	},
+});
 
-FAQPage.propTypes = {
-	faqCategories: PropTypes.oneOfType([PropTypes.array]),
-};
+FAQPage.propTypes = FAQScreen.propTypes;
 
 export async function getStaticProps() {
 	const faqCategories = await fetch(
