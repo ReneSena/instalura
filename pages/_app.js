@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Head from 'next/head';
 
-// eslint-disable-next-line react/prop-types
 export default function App({ Component, pageProps }) {
 	return (
 		<>
@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }) {
 	);
 }
 
-/*App.defaultProps = {
+App.defaultProps = {
 	Component: '',
 	pageProps: '',
 };
@@ -36,4 +36,4 @@ App.propTypes = {
 		PropTypes.elementType,
 		PropTypes.object,
 	]),
-}; */
+};
