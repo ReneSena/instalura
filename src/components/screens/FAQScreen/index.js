@@ -9,8 +9,8 @@ export default function FAQScreen({ faqCategories }) {
 		<Box display="flex" flexDirection="column" flex="1">
 			<Grid.Container style={{ flex: 1 }}>
 				<Grid.Row
-					marginTop={{ xs: '32px', md: '100px' }}
-					marginBottom={{ xs: '32px', md: '100px' }}
+					marginTop={{ xs: '32px', md: '40px' }}
+					marginBottom={{ xs: '32px', md: '40px' }}
 					justifyContent="center">
 					<Grid.Col value={{ xs: 12, md: 12 }} flex={1}>
 						<Text
