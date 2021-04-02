@@ -2,8 +2,10 @@ module.exports = {
 	env: {
 		browser: true,
 		es6: true,
+		'cypress/globals': true,
 	},
 	extends: [
+		'plugin:cypress/recommended',
 		'eslint:recommended',
 		'plugin:react/recommended',
 		'airbnb',
@@ -18,7 +20,8 @@ module.exports = {
 		ecmaVersion: 12,
 		sourceType: 'module',
 	},
-	plugins: ['react', 'eslint-plugin-prettier'],
+	plugins: ['react', 'eslint-plugin-prettier', 'eslint-plugin-cypress'],
+	ignorePatterns: ['spec.js', '**/examples/*.js'],
 	rules: {
 		'prettier/prettier': 'error',
 		'react/jsx-filename-extension': [
