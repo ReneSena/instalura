@@ -21,6 +21,7 @@ module.exports = {
 		sourceType: 'module',
 	},
 	plugins: ['react', 'eslint-plugin-prettier', 'eslint-plugin-cypress'],
+	ignorePatterns: ['spec.js', '**/examples/*.js'],
 	rules: {
 		'prettier/prettier': 'error',
 		'react/jsx-filename-extension': [
