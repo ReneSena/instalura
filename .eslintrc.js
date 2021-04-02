@@ -2,9 +2,11 @@ module.exports = {
 	env: {
 		browser: true,
 		es6: true,
+		'cypress/global': true,
 	},
 	extends: [
 		'eslint:recommended',
+		'plugin:cypress/recommended',
 		'plugin:react/recommended',
 		'airbnb',
 		'eslint-config-prettier',
