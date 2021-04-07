@@ -2,6 +2,10 @@
 
 describe('/pages/app/login/', () => {
 	it('Preencha os campos e vá para a página de perfil', () => {
+		cy.intercept(
+			'https://instalura-api.omariosouto.vercel.app/api/login'
+		).as('userLogin');
+
 		cy.visit('/app/login/');
 
 		// preencher o input de usuario
@@ -15,5 +19,15 @@ describe('/pages/app/login/', () => {
 
 		// o que esperamos? Ir para pagina de 'profile
 		cy.url().should('include', '/app/profile');
+
+		cy.wait('@userLogin').then((intercept) => {
+			//  token do servidor
+			const { token } = intercept.response.body.data;
+
+			cy.getCookie('APP_TOKEN')
+				.should('exist')
+				//  token do cookie é igual ao do server?
+				.shoudl('have.property', 'value', token);
+		});
 	});
 });
