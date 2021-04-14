@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { propToStyle } from '../../../../theme/propToStyle';
+import { propToStyle } from '../../../../theme/utils/propToStyle';
 import { breakpointsMedia } from '../../../../theme/utils/breakpointsMedia';
 
 const Container = styled.div`

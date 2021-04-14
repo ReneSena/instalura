@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Link from '../Link';
 import { TextStyleVariantsMap } from '../../foundation/Text';
 import { breakpointsMedia } from '../../../theme/utils/breakpointsMedia';
-import { propToStyle } from '../../../theme/propToStyle';
+import { propToStyle } from '../../../theme/utils/propToStyle';
 
 /* The variable theme and variant was extract of object props */
 
