@@ -28,6 +28,7 @@ export default function LoginForm() {
 	const form = useForm({
 		initialValues,
 		onSubmit: (values) => {
+			form.setIsFormDisabled(true);
 			loginService
 				.login({
 					username: values.usuario,
@@ -35,6 +36,13 @@ export default function LoginForm() {
 				})
 				.then(() => {
 					router.push('/app/profile');
+				})
+				.catch((err) => {
+					// Desafio: mostrar o erro na tela
+					console.error(err);
+				})
+				.finally(() => {
+					form.setIsFormDisabled(false);
 				});
 		},
 		async validateSchema(values) {
