@@ -48,6 +48,7 @@ export function useForm({ initialValues, onSubmit, validateSchema }) {
 		},
 		/* Valid form */
 		isFormDisabled,
+		setIsFormDisabled,
 		errors,
 		touched,
 		handleBlur(event) {
