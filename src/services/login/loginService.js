@@ -1,5 +1,7 @@
-import { destroyCookie, setCookie } from 'nookies';
+import { setCookie, destroyCookie } from 'nookies';
 import { isStagingEnv } from '../../infra/env/isStagingEnv';
+
+// Todo - create test to HttpClient
 
 async function HttpClient(url, { headers, body, ...options }) {
 	return fetch(url, {
@@ -14,36 +16,46 @@ async function HttpClient(url, { headers, body, ...options }) {
 			return respostaDoServer.json();
 		}
 
-		throw new Error('Falha em pegar os dados do servidor.');
+		throw new Error('Falha em pegar os dados do servidor :(');
 	});
 }
 
 const BASE_URL = isStagingEnv
-	? 'https://instalura-api-omariosouto.vercel.app'
-	: 'https://instalura-api-omariosouto.vercel.app';
+	? // Back End de DEV
+	  'https://instalura-api-omariosouto.vercel.app'
+	: // Back End de PROD
+	  'https://instalura-api-omariosouto.vercel.app';
 
 export const loginService = {
-	async login({ username, password }) {
-		return HttpClient(`${BASE_URL}/api/login`, {
+	async login(
+		{ username, password },
+		setCookieModule = setCookie,
+		HttpClientModule = HttpClient
+	) {
+		return HttpClientModule(`${BASE_URL}/api/login`, {
 			method: 'POST',
-
 			body: {
-				username, // omariosouto
-				password, // senhasegura
+				username, // 'omariosouto'
+				password, // 'senhasegura'
 			},
 		}).then((respostaConvertida) => {
 			const { token } = respostaConvertida.data;
+			const hasToken = token;
+			if (!hasToken) {
+				throw new Error('Failed to login');
+			}
 			const DAY_IN_SECONDS = 86400;
-
-			setCookie(null, 'APP_TOKEN', token, {
-				path: '/', // todas as páginas
+			// Salvar o Token
+			setCookieModule(null, 'APP_TOKEN', token, {
+				path: '/',
 				maxAge: DAY_IN_SECONDS * 7,
 			});
-
-			return respostaConvertida;
+			return {
+				token,
+			};
 		});
 	},
-	logout() {
-		destroyCookie(null, 'APP_TOKEN');
+	async logout(destroyCookieModule = destroyCookie) {
+		destroyCookieModule(null, 'APP_TOKEN');
 	},
 };
